@@ -9,7 +9,7 @@ CC= g++
 #For Optimization
 #CFLAGS= -O2
 #For debugging
-CFLAGS= -g
+CFLAGS= -std=c++14
 
 RM= /bin/rm -f
 
@@ -18,7 +18,13 @@ all: nameserver testclient namelookupclient PutCGI PutHTML
 testclient.o: testclient.cpp fifo.h
 	$(CC) -c $(CFLAGS) testclient.cpp
 
-nameserver.o: nameserver.cpp fifo.h
+NameEntry.o: NameEntry.cpp NameEntry.h
+	$(CC) $(CFLAGS) NameEntry.cpp -c
+
+NameMap.o: NameMap.cpp NameMap.h NameEntry.h
+	$(CC) $(CFLAGS) NameMap.cpp -c
+
+nameserver.o: nameserver.cpp fifo.h NameMap.h NameEntry.h
 	$(CC) -c $(CFLAGS) nameserver.cpp
 
 namelookupclient.o: namelookupclient.cpp fifo.h
@@ -27,8 +33,8 @@ namelookupclient.o: namelookupclient.cpp fifo.h
 testclient: testclient.o fifo.o
 	$(CC) testclient.o fifo.o -o testclient
 
-nameserver: nameserver.o fifo.o
-	$(CC) nameserver.o  fifo.o -o nameserver
+nameserver: nameserver.o fifo.o NameEntry.o NameMap.o
+	$(CC) nameserver.o NameEntry.o NameMap.o fifo.o -o nameserver
 
 fifo.o:	fifo.cpp fifo.h
 	g++ -c fifo.cpp

@@ -28,6 +28,7 @@ int main() {
 	Fifo sendfifo(send_fifo);
 
 	message = "$LAST*" + name;
+	//	message = "$FEMALE*" + name;
 	cout << "Send:" << message << endl;
 	sendfifo.openwrite();
 	sendfifo.send(message);
