@@ -50,12 +50,12 @@ PutCGI: namelookupclient
 	ls -l /usr/lib/cgi-bin/
 
 PutHTML:
-	cp namelookupCS.html /var/www/html/class/softdev/Nameserver/
-	cp namelookupCS.css /var/www/html/class/softdev/Nameserver/
-	cp namelookupCS.js /var/www/html/class/softdev/Nameserver/
+	cp namelookupCS.html /var/www/html/softdev/Nameserver/
+	cp namelookupCS.css /var/www/html/softdev/Nameserver/
+	cp namelookupCS.js /var/www/html/softdev/Nameserver/
 
 	echo "Current contents of your HTML directory: "
-	ls -l /var/www/html/class/softdev/Nameserver/
+	ls -l /var/www/html/softdev/Nameserver/
 
 clean:
 	rm -f *.o namelookupclient nameserver testclient
