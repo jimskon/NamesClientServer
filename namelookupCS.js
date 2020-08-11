@@ -43,10 +43,11 @@ function getMatches(){
     if ($('#search').val().length < 2) return;
     $('#searchresults').empty();
     $.ajax({
-		url: '/cgi-bin/skon_namelookupclient.cgi?name='+$('#search').val()+'&type_select='+searchType,
-		dataType: 'text',
-		success: processResults,
-		error: function(){alert("Error: Something went wrong");}
+	url: '/cgi-bin/namelookupclient.cgi?name='+$('#search').val()+'&type_select='+searchType,
+	type: 'get',
+	dataType: 'text',
+	success: processResults,
+	error: function(){alert("Error: Something went wrong");}
     });
 
 }

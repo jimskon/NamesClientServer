@@ -27,7 +27,7 @@
 #define MaxMess 200
 #define MODE 0777
 #define MESSTERM '\n'
-#define PATH "/tmp/"
+#define PATH "/home/fifo/"
   // SIGniture assures the pipe is unique amoung users
 #define SIG "Skon_"
 
@@ -45,8 +45,8 @@ class Fifo {
   Fifo();
   Fifo(string);
 
-  void openread();    // Start a new read transaction
-  void openwrite();   // Start a new write transaction
+  bool openread();    // Start a new read transaction
+  bool openwrite();   // Start a new write transaction
   void fifoclose();       // Finish a transaction
 
 string recv();    // Get the next record

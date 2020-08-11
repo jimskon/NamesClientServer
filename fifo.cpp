@@ -39,10 +39,10 @@ Fifo::Fifo(string name){
 
 }
 
-void Fifo::openwrite() {
+bool Fifo::openwrite() {
   if (fd !=0) {
     cout << "Fifo already opened: " << pipename << endl;
-    return;
+    return true;
   }
   // Open the pipe
   fd = open(pipename.c_str(),O_WRONLY);
@@ -50,13 +50,14 @@ void Fifo::openwrite() {
   // Check if open succeeded
   if (fd ==-1) {
 	cout << "Error - bad input pipe: " << pipename << endl;
-	return;
+	return false;
   }
+  return true;
 }
-void Fifo::openread() {
+bool Fifo::openread() {
   if (fd !=0) {
     cout << "Fifo already opened: " << pipename << endl;
-    return;
+    return true;
   }
   // Open the pipe
   fd = open(pipename.c_str(),O_RDONLY);
@@ -64,8 +65,9 @@ void Fifo::openread() {
   // Check if open succeeded
   if (fd ==-1) {
 	cout << "Error - bad input pipe: " << pipename << endl;
-	return;
+	return false;
   }
+  return true;
 }
   
 void Fifo::fifoclose() {

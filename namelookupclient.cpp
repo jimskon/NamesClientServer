@@ -45,10 +45,13 @@ int main() {
   form_iterator ts = cgi.getElement("type_select");
   form_iterator name = cgi.getElement("name");
 
+  // Output header for CGI
+  cout << "Content-Type: text/plain\n\n";
+
   // create the FIFOs for communication
   Fifo recfifo(receive_fifo);
   Fifo sendfifo(send_fifo);
-  
+  bool success; 
   string type = "$LAST*";
   if (**ts == LAST) {
 	type = "$LAST*";
@@ -62,17 +65,23 @@ int main() {
   string stname = **name;
   stname = StringToUpper(stname);
   string message =  type+stname;
-  sendfifo.openwrite();
+
+  success = sendfifo.openwrite();
+  if (!success) {
+    cout << "Fail to open send fifo" << endl;
+  }
+
   sendfifo.send(message);
   
   /* Get a message from a server */
-  recfifo.openread();
+  success = recfifo.openread();
+  if (!success) {
+    cout << "Fail to open receive fifo" << endl;
+  }
   string results = recfifo.recv();
   recfifo.fifoclose();
   sendfifo.fifoclose();
-  cout << "Content-Type: text/plain\n\n";
-
-  cout << results << endl;;
+  cout << results << endl;
   
 return 0;
 }

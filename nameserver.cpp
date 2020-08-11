@@ -32,7 +32,7 @@ string receive_fifo = "Namerequest";
 string send_fifo = "Namereply";
 
 /* Name of name data files */
-const string path = "namedata/";
+const string path = "/home/skon/NamesClientServer/namedata/";
 const string lastFile = path+"dist.all.last";
 const string maleFile = path+"dist.male.first";
 const string femaleFile = path+"dist.female.first";
