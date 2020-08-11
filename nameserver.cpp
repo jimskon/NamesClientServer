@@ -4,12 +4,12 @@
  * copyright : (C) 2017 by Jim Skon
  *
  * This program runs as a background server to a CGI program, providinging US Census
- * Data on the frequency of names in response to requestes.  The rational for this 
+ * Data on the frequency of names in response to requestes.  The rational for this
  * is to demonstrait how a background process can serve up information to a web program,
  * saving the web program from the work of intiallizing large data structures for every
  * call.
- * 
- * 
+ *
+ *
  *
  ***************************************************************************/
 #include <sys/types.h>
@@ -32,7 +32,7 @@ string receive_fifo = "Namerequest";
 string send_fifo = "Namereply";
 
 /* Name of name data files */
-const string path = "/home/class/SoftDev/namedata/";
+const string path = "namedata/";
 const string lastFile = path+"dist.all.last";
 const string maleFile = path+"dist.male.first";
 const string femaleFile = path+"dist.female.first";
@@ -70,7 +70,7 @@ int main() {
     }
     name = inMessage.substr(pos,2000);
     cout << "Message: " << type << " : " << name << endl;
- 
+
    if (type=="$LAST") {
       matchList = lastMap.getMatches(name);
     } else if (type=="$FEMALE"){
