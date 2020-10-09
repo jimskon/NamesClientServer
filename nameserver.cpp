@@ -47,6 +47,7 @@ int main() {
   NameMap lastMap(lastFile);
   NameMap femaleMap(femaleFile);
   NameMap maleMap(maleFile);
+
   vector<NameEntry> matchList; // place to stare the matches
 
   // create the FIFOs for communication

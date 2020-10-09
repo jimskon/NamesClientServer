@@ -30,6 +30,7 @@ NameMap::NameMap(string filename) {
         success = true;
     } else {
         success = false;
+	cout << "Error opening:" << filename << endl;
     }
 }
 

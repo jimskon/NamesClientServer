@@ -43,7 +43,7 @@ function getMatches(){
     if ($('#search').val().length < 2) return;
     $('#searchresults').empty();
     $.ajax({
-	url: '/cgi-bin/namelookupclient.cgi?name='+$('#search').val()+'&type_select='+searchType,
+	url: '/cgi-bin/skon_namelookupclient.cgi?name='+$('#search').val()+'&type_select='+searchType,
 	type: 'get',
 	dataType: 'text',
 	success: processResults,

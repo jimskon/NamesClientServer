@@ -2,7 +2,7 @@
 # For CSC3004 Software Development
 
 # Put your user name below:
-USER= skon
+user= skon
 
 CC= g++
 
@@ -44,18 +44,18 @@ namelookupclient: namelookupclient.o  fifo.h
 
 PutCGI: namelookupclient
 	chmod 757 namelookupclient
-	cp namelookupclient /usr/lib/cgi-bin/namelookupclient.cgi
+	cp namelookupclient /usr/lib/cgi-bin/$(user)_namelookupclient.cgi
 
 	echo "Current contents of your cgi-bin directory: "
 	ls -l /usr/lib/cgi-bin/
 
 PutHTML:
-	cp namelookupCS.html /var/www/html/softdev/Nameserver/
-	cp namelookupCS.css /var/www/html/softdev/Nameserver/
-	cp namelookupCS.js /var/www/html/softdev/Nameserver/
+	cp namelookupCS.html /var/www/html/class/softdev/$(user)/Nameserver/
+	cp namelookupCS.css /var/www/html/class/softdev/$(user)/Nameserver/
+	cp namelookupCS.js /var/www/html/class/softdev/$(user)/Nameserver/
 
 	echo "Current contents of your HTML directory: "
-	ls -l /var/www/html/softdev/Nameserver/
+	ls -l /var/www/html/class/softdev/$(user)/Nameserver/
 
 clean:
 	rm -f *.o namelookupclient nameserver testclient
