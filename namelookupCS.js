@@ -9,10 +9,10 @@ $(document).ready(function () {
 
     $("#clear").click(clearResults);
 
-    $(".dropdown-menu li a").click(function(){
-	console.log("pick!"+$(this).text());
-	$(this).parents(".btn-group").find('.selection').text($(this).text());
-	searchType=$(this).text();
+    $(".dropdown-menu a").click(function(){
+    	console.log("pick!"+$(this).text());
+    	$(this).parents(".btn-group").find('.selection').text($(this).text());
+    	searchType=$(this).text();
     });
 });
 
