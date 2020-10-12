@@ -11,7 +11,7 @@ $(document).ready(function () {
 
     $(".dropdown-menu a").click(function(){
     	console.log("pick!"+$(this).text());
-    	$(this).parents(".btn-group").find('.selection').text($(this).text());
+    	$(this).parents(".dropdown").find('.selection').text($(this).text());
     	searchType=$(this).text();
     });
 });
