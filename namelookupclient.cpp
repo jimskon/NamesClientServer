@@ -1,4 +1,16 @@
-#include <iostream>
+/***************************************************************************                   
+ * namelookupCS.cpp  -  Program to display name statistics use a server                                      
+ *                                                                                             
+ * copyright : (C) 2021 by Jim Skon                                                            
+ *                                                                            
+ * This program create an index US Census name                                       
+ * Data on the frequency of names in response to requestes.                           
+ * It then allows you to look up any name, giving the 10 closest matches               
+ *                                                            
+ *     
+ *
+ ***************************************************************************/
+
 // Stuff for AJAX
 #include "cgicc/Cgicc.h"
 #include "cgicc/HTTPHTMLHeader.h"
@@ -15,6 +27,9 @@
 #include <fstream>
 #include "fifo.h"
 
+// For Transform
+#include <algorithm>
+
 using namespace std;
 using namespace cgicc; // Needed for AJAX functions.
 
@@ -22,17 +37,6 @@ using namespace cgicc; // Needed for AJAX functions.
 #define LAST  "Last"
 #define MALE "Male"
 #define FEMALE "Female"
-
-//Indeed, myString needs to be a copy of the original string
-std::string StringToUpper(std::string myString)
-{
-  const int length = myString.length();
-  for(int i=0; i!=length ; ++i)
-    {
-      myString[i] = std::toupper(myString[i]);
-    }
-  return myString;
-}
 
 // fifo for communication
 string receive_fifo = "Namereply";
@@ -63,7 +67,10 @@ int main() {
 
   // Call server to get results
   string stname = **name;
-  stname = StringToUpper(stname);
+
+  /* Convert name to upper case*/
+  transform(stname.begin(), stname.end(), stname.begin(), ::toupper);  
+
   string message =  type+stname;
 
   success = sendfifo.openwrite();

@@ -24,7 +24,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#define MaxMess 200
+#define MaxMess 2000
 #define MODE 0777
 #define MESSTERM '\n'
 #define PATH "/home/fifo/"

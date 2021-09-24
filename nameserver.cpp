@@ -1,7 +1,7 @@
 /***************************************************************************
  * nameservercpp  -  Program to serve of last name statistics
  *
- * copyright : (C) 2017 by Jim Skon
+ * copyright : (C) 2021 by Jim Skon
  *
  * This program runs as a background server to a CGI program, providinging US Census
  * Data on the frequency of names in response to requestes.  The rational for this
@@ -32,7 +32,7 @@ string receive_fifo = "Namerequest";
 string send_fifo = "Namereply";
 
 /* Name of name data files */
-const string path = "/home/skon/NamesClientServer/namedata/";
+const string path = "/home/class/SoftDev/namedata/";
 const string lastFile = path+"dist.all.last";
 const string maleFile = path+"dist.male.first";
 const string femaleFile = path+"dist.female.first";
@@ -55,7 +55,7 @@ int main() {
   Fifo sendfifo(send_fifo);
 
   while (1) {
-
+    cout << "Waiting for message..." << endl;
     /* Get a message from a client */
     recfifo.openread();
     inMessage = recfifo.recv();
@@ -74,24 +74,30 @@ int main() {
 
    if (type=="$LAST") {
       matchList = lastMap.getMatches(name);
-    } else if (type=="$FEMALE"){
+   } else if (type=="$FEMALE"){
       matchList = femaleMap.getMatches(name);
-    } else if (type=="$MALE"){
+   } else if (type=="$MALE"){
       matchList = maleMap.getMatches(name);
-    }
-    outMessage = "";
-    for (int i = 0; i < matchList.size(); i++) {
-      outMessage += matchList.at(i).name + "," +  matchList.at(i).percent + "," +  matchList.at(i).rank;
-      if (i<matchList.size()-1)
-	outMessage += ","; // Only put out this comma if not last entry.
-    }
+   }
 
-    cout << " Results: " << outMessage << endl;
+   /* Results are comma in JSON for up to 10 names */
+   outMessage = "{\"results\":[";   
+   for (int i = 0; i < matchList.size(); i++) {
+    outMessage += "{\"name\":\"" +  matchList.at(i).name + "\",";
+    outMessage += "\"percent\":" + matchList.at(i).percent + ",";
+    outMessage += "\"rank\":" + matchList.at(i).rank;
+    outMessage += "}";
+    if (i<matchList.size()-1)
+       outMessage += ","; // Only put out this comma if not last entry.
+   }
+   outMessage += "]}";     
 
-    sendfifo.openwrite();
-    sendfifo.send(outMessage);
-    sendfifo.fifoclose();
-    recfifo.fifoclose();
+   cout << " Results: " << outMessage << endl;
+   
+   sendfifo.openwrite();
+   sendfifo.send(outMessage);
+   sendfifo.fifoclose();
+   recfifo.fifoclose();
 
   }
 }

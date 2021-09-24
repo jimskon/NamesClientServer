@@ -16,7 +16,7 @@
 NameMap::NameMap(string filename) {
 
     NameEntry nameData;
-    fstream infile(filename);
+    ifstream infile(filename);
     if (infile.good()) {
         while (1) {
             infile >> nameData.name;
@@ -30,7 +30,6 @@ NameMap::NameMap(string filename) {
         success = true;
     } else {
         success = false;
-	cout << "Error opening:" << filename << endl;
     }
 }
 

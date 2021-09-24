@@ -44,10 +44,10 @@ namelookupclient: namelookupclient.o  fifo.h
 
 PutCGI: namelookupclient
 	chmod 757 namelookupclient
-	cp namelookupclient /usr/lib/cgi-bin/$(user)_namelookupclient.cgi
+	cp namelookupclient /usr/lib/cgi-bin/$(user)_namelookupCS.cgi
 
 	echo "Current contents of your cgi-bin directory: "
-	ls -l /usr/lib/cgi-bin/
+	find /usr/lib/cgi-bin/ -type f -mmin -5 -ls
 
 PutHTML:
 	cp namelookupCS.html /var/www/html/class/softdev/$(user)/Nameserver/
@@ -55,7 +55,7 @@ PutHTML:
 	cp namelookupCS.js /var/www/html/class/softdev/$(user)/Nameserver/
 
 	echo "Current contents of your HTML directory: "
-	ls -l /var/www/html/class/softdev/$(user)/Nameserver/
+	ls -l /var/www/html/class/softdev/$(user)/Nameserver/	
 
 clean:
 	rm -f *.o namelookupclient nameserver testclient
