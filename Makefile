@@ -43,8 +43,8 @@ namelookupclient: namelookupclient.o  fifo.h
 	$(CC) namelookupclient.o  fifo.o -o namelookupclient -L/usr/local/lib -lcgicc
 
 PutCGI: namelookupclient
-	chmod 757 namelookupclient
 	cp namelookupclient /usr/lib/cgi-bin/$(user)_namelookupCS.cgi
+	chmod 757 /usr/lib/cgi-bin/$(user)_namelookupCS.cgi
 
 	echo "Current contents of your cgi-bin directory: "
 	find /usr/lib/cgi-bin/ -type f -mmin -5 -ls

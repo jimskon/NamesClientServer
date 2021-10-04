@@ -51,7 +51,6 @@ int main() {
 
   // Output header for CGI
   cout << "Content-Type: text/plain\n\n";
-
   // create the FIFOs for communication
   Fifo recfifo(receive_fifo);
   Fifo sendfifo(send_fifo);

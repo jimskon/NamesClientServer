@@ -2,20 +2,29 @@
 // Jim Skon, Kenyon College, 2021
 var searchType;  // Save search type here
 
-// search prarents for a matching selector
-var getClosest = function (elem, selector) {
-	for ( ; elem && elem !== document; elem = elem.parentNode ) {
-		if ( elem.matches( selector ) ) return elem;
-	}
-	return null;
-};
-
 console.log("Start!");
 searchType="Last";
 // Add a click event for the search button
 document.querySelector("#search-btn").addEventListener("click", (e) => {
+    e.preventDefault()
     getMatches();
 });
+
+// Add event for enter on search                                                                                                    
+var search = document.getElementById("search");
+// Respond to enter key
+search.addEventListener("keyup", function(event) {
+    event.preventDefault()
+    
+    // Number 13 is the "Enter" key on the keyboard
+    if (event.keyCode === 13) {
+        // Cancel the default action, if needed
+        event.preventDefault();
+        // Trigger the button element with a click
+        getMatches();
+    }
+});
+
 
 // Add an event listener for each item in the pull down menu
 document.querySelectorAll('.dropdown-menu a').forEach(item => {
@@ -52,22 +61,6 @@ function processResults(results) {
 
 function clearResults() {
     document.querySelector('#searchresults').innerHTML = "";
-}
-
-function getMatches_old(){
-    console.log("getMatches!");
-    var searchStr=document.querySelector('#search').value;
-    console.log(searchStr+":"+searchType);
-    if (searchStr.length < 2) return;
-    document.querySelector('#searchresults').innerHTML = "";
-    $.ajax({
-	url: '/cgi-bin/skon_namelookup.cgi?name='+searchStr+'&type_select='+searchType,
-	type: "get",
-	dataType: 'text',
-	success: processResults,
-	error: function(){alert("Error: Something went wrong");}
-    });
-
 }
 
 function getMatches(){
